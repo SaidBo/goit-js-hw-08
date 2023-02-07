@@ -6,7 +6,6 @@ const formData = {};
 
 const refs = {
   form: document.querySelector('.feedback-form'),
-  //   textarea: document.querySelector('.feedback-form textarea'),
 };
 
 refs.form.addEventListener('submit', onFormSubmit);
@@ -25,8 +24,17 @@ populateTextarea();
 
 function onFormSubmit(evt) {
   evt.preventDefault();
-  evt.currentTarget.reset();
 
+  if (
+    refs.form.elements.email.value === '' ||
+    refs.form.elements.message.value === ''
+  ) {
+    alert`Заповніть, будь ласка, всі поля`;
+  }
+
+  console.log(JSON.parse(localStorage.getItem('STORAGE_KEY')));
+
+  evt.currentTarget.reset();
   localStorage.removeItem('STORAGE_KEY');
 }
 
@@ -34,8 +42,7 @@ function populateTextarea() {
   const enteredData = JSON.parse(localStorage.getItem('STORAGE_KEY'));
 
   if (enteredData) {
-    refs.form.elements.email.value = enteredData.email;
-    refs.form.elements.message.value = enteredData.message;
+    refs.form.elements.email.value = enteredData?.email || '';
+    refs.form.elements.message.value = enteredData?.message || '';
   }
 }
-
