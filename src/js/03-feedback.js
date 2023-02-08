@@ -44,5 +44,7 @@ function populateTextarea() {
   if (enteredData) {
     refs.form.elements.email.value = enteredData?.email || '';
     refs.form.elements.message.value = enteredData?.message || '';
+    formData.email = enteredData.email;
+    formData.message = enteredData.message;
   }
 }
